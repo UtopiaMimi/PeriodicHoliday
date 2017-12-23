@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- TextView style -->
+	<style name="text_style_24sp_FFFFFF">
+		<item name="android:textSize">@dimen/pixel_24</item>
+		<item name="android:textColor">@color/color_FFFFFF</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_18sp_2B84C6">
+		<item name="android:textSize">@dimen/pixel_18</item>
+		<item name="android:textColor">@color/color_2B84C6</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_16sp_1A1A1A">
+		<item name="android:textSize">@dimen/pixel_16</item>
+		<item name="android:textColor">@color/color_1A1A1A</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_16sp_FFFFFF">
+		<item name="android:textSize">@dimen/pixel_16</item>
+		<item name="android:textColor">@color/color_FFFFFF</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_16sp_808080">
+		<item name="android:textSize">@dimen/pixel_16</item>
+		<item name="android:textColor">@color/color_808080</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_16sp_2B84C6">
+		<item name="android:textSize">@dimen/pixel_16</item>
+		<item name="android:textColor">@color/color_2B84C6</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_16sp_FF3142">
+		<item name="android:textSize">@dimen/pixel_16</item>
+		<item name="android:textColor">@color/color_FF3142</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_16sp_CCCCCC">
+		<item name="android:textSize">@dimen/pixel_16</item>
+		<item name="android:textColor">@color/color_CCCCCC</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_14sp_colourless">
+		<item name="android:textSize">@dimen/pixel_14</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_14sp_1A1A1A">
+		<item name="android:textSize">@dimen/pixel_14</item>
+		<item name="android:textColor">@color/color_1A1A1A</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_14sp_FFFFFF">
+		<item name="android:textSize">@dimen/pixel_14</item>
+		<item name="android:textColor">@color/color_FFFFFF</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_14sp_808080">
+		<item name="android:textSize">@dimen/pixel_14</item>
+		<item name="android:textColor">@color/color_808080</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_14sp_2B84C6">
+		<item name="android:textSize">@dimen/pixel_14</item>
+		<item name="android:textColor">@color/color_2B84C6</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_13sp_1A1A1A">
+		<item name="android:textSize">@dimen/pixel_13</item>
+		<item name="android:textColor">@color/color_1A1A1A</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_12sp_1A1A1A">
+		<item name="android:textSize">@dimen/pixel_12</item>
+		<item name="android:textColor">@color/color_1A1A1A</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_12sp_CCCCCC">
+		<item name="android:textSize">@dimen/pixel_12</item>
+		<item name="android:textColor">@color/color_CCCCCC</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_12sp_808080">
+		<item name="android:textSize">@dimen/pixel_12</item>
+		<item name="android:textColor">@color/color_808080</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_12sp_2B84C6">
+		<item name="android:textSize">@dimen/pixel_12</item>
+		<item name="android:textColor">@color/color_2B84C6</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_12sp_FFFFFF">
+		<item name="android:textSize">@dimen/pixel_12</item>
+		<item name="android:textColor">@color/color_FFFFFF</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_11sp_2B84C6">
+		<item name="android:textSize">@dimen/pixel_11</item>
+		<item name="android:textColor">@color/color_2B84C6</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_11sp_1A1A1A">
+		<item name="android:textSize">@dimen/pixel_11</item>
+		<item name="android:textColor">@color/color_1A1A1A</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="text_style_10sp_1A1A1A">
+		<item name="android:textSize">@dimen/pixel_10</item>
+		<item name="android:textColor">@color/color_1A1A1A</item>
+		<item name="android:includeFontPadding">false</item>
+	</style>
+
+	<style name="split_style_horizontal_match_parent_bg_1A1A1A">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/dp_00_5</item>
+		<item name="android:background">@color/color_1A1A1A</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+	<style name="split_style_horizontal_match_parent_bg_CCCCCC">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/dp_00_5</item>
+		<item name="android:background">@color/color_CCCCCC</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+	<style name="split_style_horizontal_match_parent_bg_FFFFFF">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/dp_00_5</item>
+		<item name="android:background">@color/color_FFFFFF</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+	<style name="split_style_vertical_10dp_bg_CCCCCC">
+		<item name="android:layout_width">@dimen/dp_00_5</item>
+		<item name="android:layout_height">@dimen/dp_10</item>
+		<item name="android:background">@color/color_CCCCCC</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+	<style name="split_style_vertical_match_bg_CCCCCC">
+		<item name="android:layout_width">@dimen/dp_00_5</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:background">@color/color_CCCCCC</item>
+		<item name="android:enabled">false</item>
+		<item name="android:focusable">false</item>
+		<item name="android:focusableInTouchMode">false</item>
+	</style>
+
+
+	<!-- ListView style -->
+	<style name="listview_style_bg_FFFFFF_divider_CCCCCC">
+		<item name="android:listSelector">@color/color_00000000</item>
+		<item name="android:cacheColorHint">@color/color_00000000</item>
+		<item name="android:background">@color/color_FFFFFF</item>
+		<item name="android:overScrollMode">never</item>
+		<item name="android:scrollbars">none</item>
+		<item name="android:divider">@color/color_CCCCCC</item>
+		<item name="android:dividerHeight">@dimen/dp_00_5</item>
+	</style>
+
+	<style name="listview_style_bg_FFFFFF_divider_null">
+		<item name="android:listSelector">@color/color_00000000</item>
+		<item name="android:cacheColorHint">@color/color_00000000</item>
+		<item name="android:background">@color/color_FFFFFF</item>
+		<item name="android:overScrollMode">never</item>
+		<item name="android:scrollbars">none</item>
+		<item name="android:divider">@null</item>
+	</style>
+
+
+	<!-- Gif style -->
+	<style name="Widget_GifView"/>
+
+
+	<!-- Immersive status bar -->
+	<style name="TranslucentTheme" parent="AppTheme">
+		<!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+	</style>
+
+
+	<!-- Dialog -->
+	<style name="Dialog" parent="android:style/Theme.Dialog">
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+		<item name="android:backgroundDimEnabled">true</item>
+	</style>
+
+</resources>

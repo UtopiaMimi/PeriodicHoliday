@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<FrameLayout
+		android:id="@+id/bottom_bar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/dp_50"
+		android:layout_gravity="bottom"
+		android:background="@color/color_FFFFFF"
+		android:visibility="gone">
+
+		<TextView
+			android:id="@+id/bottom_bar_single_tab"
+			style="@style/text_style_16sp_FFFFFF"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginBottom="@dimen/dp_04"
+			android:layout_marginEnd="@dimen/dp_35"
+			android:layout_marginStart="@dimen/dp_35"
+			android:layout_marginTop="@dimen/dp_04"
+			android:gravity="center"
+			android:visibility="gone"/>
+
+		<LinearLayout
+			android:id="@+id/bottom_bar_two_tabs"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:paddingBottom="@dimen/dp_07_5"
+			android:paddingEnd="@dimen/dp_35"
+			android:paddingStart="@dimen/dp_35"
+			android:paddingTop="@dimen/dp_07_5"
+			android:visibility="gone">
+
+			<TextView
+				android:id="@+id/bottom_bar_two_tabs_the_first"
+				style="@style/text_style_14sp_1A1A1A"
+				android:layout_width="@dimen/dp_100"
+				android:layout_height="match_parent"
+				android:gravity="center"/>
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"/>
+
+			<TextView
+				android:id="@+id/bottom_bar_two_tabs_the_second"
+				style="@style/text_style_14sp_FFFFFF"
+				android:layout_width="@dimen/dp_150"
+				android:layout_height="match_parent"
+				android:gravity="center"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/bottom_bar_two_tabs_with_split"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:visibility="gone">
+
+			<TextView
+				android:id="@+id/bottom_bar_two_tabs_with_split_the_first"
+				style="@style/text_style_16sp_FFFFFF"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:gravity="center"/>
+
+			<TextView
+				android:layout_width="@dimen/dp_00_5"
+				android:layout_height="@dimen/dp_14"
+				android:layout_gravity="center_vertical"
+				android:background="@color/color_FFFFFF"/>
+
+			<TextView
+				android:id="@+id/bottom_bar_two_tabs_with_split_the_second"
+				style="@style/text_style_16sp_FFFFFF"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:gravity="center"/>
+		</LinearLayout>
+
+		<!-- 分割线 -->
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/dp_00_5"
+			android:background="@color/color_CCCCCC"
+			android:enabled="false"
+			android:focusable="false"
+			android:focusableInTouchMode="false"/>
+	</FrameLayout>
+
+</merge>

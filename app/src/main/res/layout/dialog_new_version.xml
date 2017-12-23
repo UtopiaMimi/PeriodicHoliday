@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			 android:layout_gravity="center_horizontal"
+			 android:background="@null">
+
+	<LinearLayout
+		android:layout_width="@dimen/dp_280"
+		android:layout_height="@dimen/dp_298"
+		android:background="@drawable/radius_dialog_all_10dp"
+		android:orientation="vertical"
+		android:paddingBottom="@dimen/dp_15"
+		android:paddingTop="@dimen/dp_15">
+
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:paddingEnd="@dimen/dp_15"
+			android:paddingStart="@dimen/dp_15">
+
+			<LinearLayout
+				android:id="@+id/dialog_new_version_introduction_ll"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<ImageView
+					android:layout_width="@dimen/dp_49"
+					android:layout_height="@dimen/dp_50"
+					android:layout_gravity="center_horizontal"
+					android:scaleType="fitXY"
+					android:src="@drawable/xiazai"/>
+
+				<TextView
+					style="@style/text_style_14sp_2B84C6"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="@dimen/dp_10"
+					android:text="@string/update_hint"/>
+
+				<TextView
+					android:id="@+id/dialog_new_version_introduction_tv"
+					style="@style/text_style_14sp_1A1A1A"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/dp_15"
+					android:lineSpacingExtra="@dimen/dp_09"/>
+			</LinearLayout>
+
+			<TextView
+				android:id="@+id/dialog_new_version_updating_tv"
+				style="@style/text_style_14sp_1A1A1A"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginTop="@dimen/dp_04"
+				android:text="@string/updating"
+				android:visibility="gone"/>
+
+		</FrameLayout>
+
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<LinearLayout
+				android:id="@+id/dialog_new_version_one_option_update_now_ll"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/dp_15"
+				android:orientation="vertical"
+				android:visibility="gone">
+
+				<TextView
+					style="@style/split_style_horizontal_match_parent_bg_CCCCCC"/>
+
+				<TextView
+					style="@style/text_style_14sp_2B84C6"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingBottom="@dimen/dp_02_5"
+					android:paddingTop="@dimen/dp_17_5"
+					android:text="@string/update_now"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/dialog_new_version_one_option_cancel_ll"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/dp_19"
+				android:orientation="vertical"
+				android:visibility="gone">
+
+				<TextView
+					style="@style/split_style_horizontal_match_parent_bg_CCCCCC"/>
+
+				<TextView
+					style="@style/text_style_14sp_808080"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingBottom="@dimen/dp_00_5"
+					android:paddingTop="@dimen/dp_15_5"
+					android:text="@string/cancel_update"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/dialog_new_version_two_option_ll"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/dp_35"
+				android:layout_marginTop="@dimen/dp_15"
+				android:orientation="horizontal"
+				android:paddingEnd="@dimen/dp_15"
+				android:paddingStart="@dimen/dp_15"
+				android:visibility="gone">
+
+				<TextView
+					android:id="@+id/dialog_new_version_two_option_another_time_tv"
+					style="@style/text_style_14sp_1A1A1A"
+					android:layout_width="@dimen/dp_95"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:text="@string/another_time"/>
+
+				<TextView
+					android:layout_width="@dimen/dp_00"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"/>
+
+				<TextView
+					android:id="@+id/dialog_new_version_two_option_update_now_tv"
+					style="@style/text_style_14sp_FFFFFF"
+					android:layout_width="@dimen/dp_95"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:gravity="center"
+					android:text="@string/update_now"/>
+			</LinearLayout>
+		</FrameLayout>
+	</LinearLayout>
+
+</FrameLayout>
