@@ -13,10 +13,10 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
-import com.swan.twoafterfour.Entity.Version;
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.customclass.BaseActivity;
 import com.swan.twoafterfour.dialog.NewVersionDialog;
+import com.swan.twoafterfour.entity.Version;
 import com.swan.twoafterfour.globaldata.GlobalData;
 import com.swan.twoafterfour.netutil.OkHttp3Util;
 import com.swan.twoafterfour.netutil.RequestNetCallBack;

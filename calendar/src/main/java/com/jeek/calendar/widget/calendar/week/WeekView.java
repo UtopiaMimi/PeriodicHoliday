@@ -57,6 +57,8 @@ public class WeekView extends View {
 	private GestureDetector mGestureDetector;
 	private Bitmap mRestBitmap, mWorkBitmap;
 
+	private int periodicDayOffColor;
+
 	public WeekView(Context context, DateTime dateTime) {
 		this(context, null, dateTime);
 	}
@@ -115,6 +117,10 @@ public class WeekView extends View {
 			mIsShowLunar = array.getBoolean(R.styleable.WeekCalendarView_week_show_lunar, true);
 			mIsShowHolidayHint = array.getBoolean(R.styleable
 					.WeekCalendarView_week_show_holiday_hint, true);
+
+			periodicDayOffColor = array.getColor(R.styleable
+					.WeekCalendarView_week_selected_circle_today_color, Color.parseColor
+					("#FF00FF"));
 		} else {
 			mSelectDayColor = Color.parseColor("#FFFFFF");
 			mSelectBGColor = Color.parseColor("#E8E8E8");
@@ -129,6 +135,8 @@ public class WeekView extends View {
 			mIsShowHint = true;
 			mIsShowLunar = true;
 			mIsShowHolidayHint = true;
+
+			periodicDayOffColor = Color.parseColor("#FF00FF");
 		}
 		mStartDate = dateTime;
 		mRestBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_rest_day);
@@ -251,6 +259,7 @@ public class WeekView extends View {
 			int startX = (int) (mColumnSize * i + (mColumnSize - mPaint.measureText(dayString)) /
 					2);
 			int startY = (int) (mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2);
+			// 背景颜色
 			if (day == mSelDay) {
 				int startRecX = mColumnSize * i;
 				int endRecX = startRecX + mColumnSize;
@@ -263,6 +272,7 @@ public class WeekView extends View {
 				canvas.drawCircle((startRecX + endRecX) / 2, mRowSize / 2, mSelectCircleSize,
 						mPaint);
 			}
+			// 数字颜色
 			if (day == mSelDay) {
 				selected = i;
 				mPaint.setColor(mSelectDayColor);

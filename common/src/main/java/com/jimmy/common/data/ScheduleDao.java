@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.jimmy.common.bean.Schedule;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Created by Jimmy on 2016/10/11 0011.
  */
 public class ScheduleDao {
+	private final String TAG = "ScheduleDao";
 
 	private JeekSQLiteHelper mHelper;
 
@@ -59,6 +61,7 @@ public class ScheduleDao {
 
 	public List<Schedule> getScheduleByDate(int year, int month, int day) {
 		List<Schedule> schedules = new ArrayList<>();
+		Log.d(TAG, "getScheduleByDate_mHelper:" + mHelper);
 		SQLiteDatabase db = mHelper.getReadableDatabase();
 		Cursor cursor = db.query(JeekDBConfig.SCHEDULE_TABLE_NAME, null,
 				String.format("%s=? and %s=? and %s=?", JeekDBConfig.SCHEDULE_YEAR,

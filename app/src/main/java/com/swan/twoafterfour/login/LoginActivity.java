@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.broadcastreceiver.NetworkStatusBroadcastReceiver;
 import com.swan.twoafterfour.customclass.BaseActivity;
-import com.swan.twoafterfour.utils.ActivityManager;
 import com.swan.twoafterfour.versionmanager.VersionManager;
 
 
@@ -19,7 +18,6 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActivityManager.getInstance().addActivity(this);
 	}
 
 	@Override
@@ -28,7 +26,7 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	@Override
-	protected void initViews() {
+	protected void initial() {
 
 	}
 

@@ -144,6 +144,10 @@
 -keep class com.ttlock.** {*;}
 #-dontwarn com.ttlock.**
 
+-keep class com.blankj.utilcode.** { *; }
+-keepclassmembers class com.blankj.utilcode.** { *; }
+-dontwarn com.blankj.utilcode.**
+
 #-keep class butterknife.** { *; }
 #-dontwarn butterknife.internal.**
 #-keep class **$$ViewBinder { *; }

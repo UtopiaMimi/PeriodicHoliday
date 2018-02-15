@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jimmy.common.base.app.BaseFragment;
 import com.jimmy.common.bean.Schedule;
 import com.jimmy.common.listener.OnTaskFinishedListener;
 import com.swan.twoafterfour.R;
+import com.swan.twoafterfour.customclass.BaseFragment;
 import com.swan.twoafterfour.dialog.ConfirmDialog;
 import com.swan.twoafterfour.task.schedule.RemoveScheduleTask;
 import com.swan.twoafterfour.task.schedule.UpdateScheduleTask;

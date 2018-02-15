@@ -28,7 +28,7 @@
 				android:id="@+id/ivMainMenu"
 				android:layout_width="@dimen/action_bar_height"
 				android:layout_height="match_parent"
-				android:layout_marginLeft="5dp"
+				android:layout_marginStart="5dp"
 				android:background="@color/colorTranslate"
 				android:src="@drawable/btn_menu"/>
 
@@ -75,6 +75,14 @@
 				android:textSize="@dimen/text_size_18sp"
 				android:textStyle="bold"
 				android:visibility="gone"/>
+
+			<ImageButton
+				android:id="@+id/rightMenuIb"
+				android:layout_width="@dimen/action_bar_height"
+				android:layout_height="match_parent"
+				android:layout_marginStart="5dp"
+				android:background="@color/colorTranslate"
+				android:src="@drawable/btn_menu"/>
 
 		</RelativeLayout>
 

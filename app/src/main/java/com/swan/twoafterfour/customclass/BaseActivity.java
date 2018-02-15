@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.swan.twoafterfour.R;
+import com.swan.twoafterfour.utils.ActivityManager;
 import com.swan.twoafterfour.utils.SharedPreferencesManager;
 import com.swan.twoafterfour.versionmanager.VersionManager;
 
@@ -37,11 +38,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		android.util.Log.d("BaseActivity", getClass().getSimpleName());
+		Log.d("BaseActivity", getClass().getSimpleName());
+		ActivityManager.getInstance().addActivity(this);
 		setContentView(getLayoutResource());
 		ButterKnife.bind(this);
 		Fm = getSupportFragmentManager();
-		initViews();
+		initial();
 
 		token = SharedPreferencesManager.getString(getBaseContext(), "token", "");
 		Log.d(TAG, "token:" + token);
@@ -63,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 		return res;
 	}
 
-	protected abstract void initViews();
+	protected abstract void initial();
 
 	/**
 	 * 设置 Activity 背景半透明

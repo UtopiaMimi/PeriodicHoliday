@@ -3,6 +3,7 @@ package com.jeek.calendar.widget.calendar.schedule;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.util.List;
  * Created by Jimmy on 2016/10/7 0007.
  */
 public class ScheduleLayout extends FrameLayout {
+	private final String TAG = "ScheduleLayout";
 
 	private final int DEFAULT_MONTH = 0;
 	private final int DEFAULT_WEEK = 1;
@@ -135,6 +137,8 @@ public class ScheduleLayout extends FrameLayout {
 	private OnCalendarClickListener mMonthCalendarClickListener = new OnCalendarClickListener() {
 		@Override
 		public void onClickDate(int year, int month, int day) {
+			Log.i(TAG, "mMonthCalendarClickListener_year:" + year + ", month:" + month + ", day:"
+					+ day);
 			wcvCalendar.setOnCalendarClickListener(null);
 			int weeks = CalendarUtils.getWeeksAgo(mCurrentSelectYear, mCurrentSelectMonth,
 					mCurrentSelectDay, year, month, day);
@@ -195,6 +199,7 @@ public class ScheduleLayout extends FrameLayout {
 	private OnCalendarClickListener mWeekCalendarClickListener = new OnCalendarClickListener() {
 		@Override
 		public void onClickDate(int year, int month, int day) {
+			Log.i(TAG, "mWeekCalendarClickListener_year:" + year + ", month:" + month + ", day:" + day);
 			mcvCalendar.setOnCalendarClickListener(null);
 			int months = CalendarUtils.getMonthsAgo(mCurrentSelectYear, mCurrentSelectMonth, year,
 					month);

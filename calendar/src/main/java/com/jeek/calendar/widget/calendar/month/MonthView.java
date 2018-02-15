@@ -26,6 +26,7 @@ import java.util.List;
  * Created by Jimmy on 2016/10/6 0006.
  */
 public class MonthView extends View {
+	private final String TAG = "MonthView";
 
 	private static final int NUM_COLUMNS = 7;
 	private static final int NUM_ROWS = 6;
@@ -57,6 +58,8 @@ public class MonthView extends View {
 	private OnMonthClickListener mDateClickListener;
 	private GestureDetector mGestureDetector;
 	private Bitmap mRestBitmap, mWorkBitmap;
+
+	private int periodicDayOffColor;
 
 	public MonthView(Context context, int year, int month) {
 		this(context, null, year, month);
@@ -135,6 +138,10 @@ public class MonthView extends View {
 			mIsShowLunar = array.getBoolean(R.styleable.MonthCalendarView_month_show_lunar, true);
 			mIsShowHolidayHint = array.getBoolean(R.styleable
 					.MonthCalendarView_month_show_holiday_hint, true);
+
+			periodicDayOffColor = array.getColor(R.styleable
+					.WeekCalendarView_week_selected_circle_today_color, Color.parseColor
+					("#FF00FF"));
 		} else {
 			mSelectDayColor = Color.parseColor("#FFFFFF");
 			mSelectBGColor = Color.parseColor("#E8E8E8");
@@ -149,6 +156,8 @@ public class MonthView extends View {
 			mIsShowHint = true;
 			mIsShowLunar = true;
 			mIsShowHolidayHint = true;
+
+			periodicDayOffColor = Color.parseColor("#FF00FF");
 		}
 		mSelYear = year;
 		mSelMonth = month;
@@ -253,6 +262,7 @@ public class MonthView extends View {
 		int monthDays = CalendarUtils.getMonthDays(mSelYear, mSelMonth);
 		int weekNumber = CalendarUtils.getFirstDayWeek(mSelYear, mSelMonth);
 		for (int day = 0; day < monthDays; day++) {
+			int color = chooseColor(day);
 			dayString = String.valueOf(day + 1);
 			int col = (day + weekNumber - 1) % 7;
 			int row = (day + weekNumber - 1) / 7;
@@ -261,6 +271,7 @@ public class MonthView extends View {
 					/ 2);
 			int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent
 					()) / 2);
+			// 背景颜色
 			if (dayString.equals(String.valueOf(mSelDay))) {
 				int startRecX = mColumnSize * col;
 				int startRecY = mRowSize * row;
@@ -275,6 +286,7 @@ public class MonthView extends View {
 						mSelectCircleSize, mPaint);
 				mWeekRow = row + 1;
 			}
+			// 数字颜色
 			if (dayString.equals(String.valueOf(mSelDay))) {
 				selectedPoint[0] = row;
 				selectedPoint[1] = col;
@@ -290,6 +302,14 @@ public class MonthView extends View {
 					mDaysText[row][col]);
 		}
 		return selectedPoint;
+	}
+
+	private int chooseColor(int day) {
+//		for (Day recordDay :
+//				) {
+//
+//		}
+		return 0;
 	}
 
 	private void drawNextMonth(Canvas canvas) {

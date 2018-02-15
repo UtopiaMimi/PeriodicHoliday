@@ -2,7 +2,6 @@ package com.swan.twoafterfour.main;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
@@ -10,26 +9,27 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.jeek.calendar.widget.calendar.schedule.ScheduleRecyclerView;
-import com.jimmy.common.base.app.BaseFragment;
 import com.jimmy.common.bean.EventSet;
 import com.jimmy.common.bean.Schedule;
 import com.jimmy.common.listener.OnTaskFinishedListener;
 import com.jimmy.common.util.DeviceUtils;
 import com.jimmy.common.util.ToastUtils;
 import com.swan.twoafterfour.R;
+import com.swan.twoafterfour.customclass.BaseFragment;
 import com.swan.twoafterfour.dialog.SelectDateDialog;
 import com.swan.twoafterfour.task.eventset.GetScheduleTask;
 import com.swan.twoafterfour.task.schedule.AddScheduleTask;
 
 import java.util.Calendar;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Jimmy on 2016/10/12 0012.
@@ -39,9 +39,12 @@ public class EventSetFragment extends BaseFragment implements View.OnClickListen
 
 	public static String EVENT_SET_OBJ = "event.set.obj";
 
-	private ScheduleRecyclerView rvScheduleList;
-	private EditText etInputContent;
-	private RelativeLayout rlNoTask;
+	@BindView(R.id.rvScheduleList)
+	ScheduleRecyclerView rvScheduleList;
+	@BindView(R.id.etInputContent)
+	EditText etInputContent;
+	@BindView(R.id.rlNoTask)
+	RelativeLayout rlNoTask;
 	private SelectDateDialog mSelectDateDialog;
 
 	private ScheduleAdapter mScheduleAdapter;
@@ -57,23 +60,6 @@ public class EventSetFragment extends BaseFragment implements View.OnClickListen
 		bundle.putSerializable(EVENT_SET_OBJ, eventSet);
 		fragment.setArguments(bundle);
 		return fragment;
-	}
-
-	@Nullable
-	@Override
-	protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container) {
-		return inflater.inflate(R.layout.fragment_event_set, container, false);
-	}
-
-	@Override
-	protected void bindView() {
-		rvScheduleList = searchViewById(R.id.rvScheduleList);
-		rlNoTask = searchViewById(R.id.rlNoTask);
-		etInputContent = searchViewById(R.id.etInputContent);
-		searchViewById(R.id.ibMainClock).setOnClickListener(this);
-		searchViewById(R.id.ibMainOk).setOnClickListener(this);
-		initBottomInputBar();
-		initScheduleList();
 	}
 
 	private void initBottomInputBar() {
@@ -104,28 +90,50 @@ public class EventSetFragment extends BaseFragment implements View.OnClickListen
 
 	@Override
 	protected void initData() {
-		super.initData();
 		mEventSet = (EventSet) getArguments().getSerializable(EVENT_SET_OBJ);
 	}
 
 	@Override
-	protected void bindData() {
-		super.bindData();
-		new GetScheduleTask(mActivity, this, mEventSet.getId()).executeOnExecutor(AsyncTask
+	protected int getLayoutId() {
+		return R.layout.fragment_event_set;
+	}
+
+	@Override
+	protected void initView(View view, Bundle savedInstanceState) {
+		initBottomInputBar();
+		initScheduleList();
+	}
+
+	@Override
+	protected void initEvent() {
+
+	}
+
+	@Override
+	protected void requestData() {
+
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		new GetScheduleTask(getCurrentActivity(), this, mEventSet.getId()).executeOnExecutor
+				(AsyncTask
 				.THREAD_POOL_EXECUTOR);
 	}
 
 	private void initScheduleList() {
-		LinearLayoutManager manager = new LinearLayoutManager(mActivity);
+		LinearLayoutManager manager = new LinearLayoutManager(getCurrentActivity());
 		manager.setOrientation(LinearLayoutManager.VERTICAL);
 		rvScheduleList.setLayoutManager(manager);
 		DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
 		itemAnimator.setSupportsChangeAnimations(false);
 		rvScheduleList.setItemAnimator(itemAnimator);
-		mScheduleAdapter = new ScheduleAdapter(mActivity, this);
+		mScheduleAdapter = new ScheduleAdapter(getCurrentActivity(), this);
 		rvScheduleList.setAdapter(mScheduleAdapter);
 	}
 
+	@OnClick({R.id.ibMainClock, R.id.ibMainOk})
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -141,7 +149,8 @@ public class EventSetFragment extends BaseFragment implements View.OnClickListen
 	private void showSelectDateDialog() {
 		if (mSelectDateDialog == null) {
 			Calendar calendar = Calendar.getInstance();
-			mSelectDateDialog = new SelectDateDialog(mActivity, this, calendar.get(Calendar.YEAR),
+			mSelectDateDialog = new SelectDateDialog(getCurrentActivity(), this, calendar.get
+					(Calendar.YEAR),
 					calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), mPosition);
 		}
 		mSelectDateDialog.show();
@@ -149,13 +158,13 @@ public class EventSetFragment extends BaseFragment implements View.OnClickListen
 
 	private void closeSoftInput() {
 		etInputContent.clearFocus();
-		DeviceUtils.closeSoftInput(mActivity, etInputContent);
+		DeviceUtils.closeSoftInput(getCurrentActivity(), etInputContent);
 	}
 
 	private void addSchedule() {
 		String content = etInputContent.getText().toString();
 		if (TextUtils.isEmpty(content)) {
-			ToastUtils.showShortToast(mActivity, R.string.schedule_input_content_is_no_null);
+			ToastUtils.showShortToast(getCurrentActivity(), R.string.schedule_input_content_is_no_null);
 		} else {
 			closeSoftInput();
 			Schedule schedule = new Schedule();
@@ -167,7 +176,7 @@ public class EventSetFragment extends BaseFragment implements View.OnClickListen
 			schedule.setYear(mCurrentSelectYear);
 			schedule.setMonth(mCurrentSelectMonth);
 			schedule.setDay(mCurrentSelectDay);
-			new AddScheduleTask(mActivity, new OnTaskFinishedListener<Schedule>() {
+			new AddScheduleTask(getCurrentActivity(), new OnTaskFinishedListener<Schedule>() {
 				@Override
 				public void onTaskFinished(Schedule data) {
 					if (data != null) {

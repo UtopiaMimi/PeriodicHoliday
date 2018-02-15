@@ -19,11 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jimmy.common.base.app.BaseFragment;
 import com.jimmy.common.bean.EventSet;
 import com.jimmy.common.listener.OnTaskFinishedListener;
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.customclass.BaseActivity;
+import com.swan.twoafterfour.customclass.BaseFragment;
+import com.swan.twoafterfour.entity.Day;
 import com.swan.twoafterfour.task.eventset.LoadEventSetTask;
 
 import java.util.ArrayList;
@@ -65,13 +66,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	private String[] mMonthText;
 	private int mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay;
 
+	public static int operation;
+
+	List<Day> periodicDaysOff;
+
 	@Override
 	protected int getLayoutResource() {
 		return R.layout.activity_main;
 	}
 
 	@Override
-	protected void initViews() {
+	protected void initial() {
 		initUi();
 		initEventSetList();
 		gotoScheduleFragment();
@@ -129,6 +134,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	}
 
 	protected void initData() {
+		periodicDaysOff = new ArrayList<>();
 		resetMainTitleDate(mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay);
 		new LoadEventSetTask(this, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
@@ -167,7 +173,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 		mCurrentSelectDay = day;
 	}
 
-	@OnClick({R.id.ivMainMenu, R.id.llMenuSchedule, R.id.llMenuNoCategory, R.id.tvMenuAddEventSet})
+	protected void recordOperation(int year, int month, int day) {
+		switch (operation) {
+			case 1:
+				periodicDaysOff.add(new Day(year, month, day, MainActivity.operation));
+				break;
+			default:
+				break;
+		}
+	}
+
+	@OnClick({R.id.ivMainMenu, R.id.llMenuSchedule, R.id.llMenuNoCategory, R.id
+			.tvMenuAddEventSet, R.id.rightMenuIb})
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -184,6 +201,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 				break;
 			case R.id.tvMenuAddEventSet:
 				gotoAddEventSetActivity();
+				break;
+			case R.id.rightMenuIb:
+				operation = 1;
+				break;
+			default:
 				break;
 		}
 	}

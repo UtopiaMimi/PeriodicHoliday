@@ -1,4 +1,4 @@
-package com.swan.twoafterfour.Entity;
+package com.swan.twoafterfour.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

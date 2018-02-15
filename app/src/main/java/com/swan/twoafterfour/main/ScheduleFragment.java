@@ -1,29 +1,28 @@
 package com.swan.twoafterfour.main;
 
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.jeek.calendar.widget.calendar.OnCalendarClickListener;
 import com.jeek.calendar.widget.calendar.schedule.ScheduleLayout;
 import com.jeek.calendar.widget.calendar.schedule.ScheduleRecyclerView;
-import com.jimmy.common.base.app.BaseFragment;
 import com.jimmy.common.bean.Schedule;
 import com.jimmy.common.listener.OnTaskFinishedListener;
 import com.jimmy.common.util.DeviceUtils;
 import com.jimmy.common.util.ToastUtils;
 import com.swan.twoafterfour.R;
+import com.swan.twoafterfour.customclass.BaseFragment;
 import com.swan.twoafterfour.dialog.SelectDateDialog;
 import com.swan.twoafterfour.task.schedule.AddScheduleTask;
 import com.swan.twoafterfour.task.schedule.LoadScheduleTask;
@@ -31,18 +30,24 @@ import com.swan.twoafterfour.task.schedule.LoadScheduleTask;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * Created by Jimmy on 2016/10/11 0011.
  */
 public class ScheduleFragment extends BaseFragment implements OnCalendarClickListener, View
-		.OnClickListener,
+		.OnClickListener, OnTaskFinishedListener<List<Schedule>>, SelectDateDialog
+		.OnSelectDateListener {
+	private final String TAG = "ScheduleFragment";
 
-		OnTaskFinishedListener<List<Schedule>>, SelectDateDialog.OnSelectDateListener {
-
-	private ScheduleLayout slSchedule;
+	@BindView(R.id.slSchedule)
+	ScheduleLayout slSchedule;
 	private ScheduleRecyclerView rvScheduleList;
-	private EditText etInputContent;
-	private RelativeLayout rLNoTask;
+	@BindView(R.id.etInputContent)
+	EditText etInputContent;
+	@BindView(R.id.rlNoTask)
+	RelativeLayout rLNoTask;
 
 	private ScheduleAdapter mScheduleAdapter;
 	private int mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay;
@@ -52,38 +57,40 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
 		return new ScheduleFragment();
 	}
 
-	@Nullable
 	@Override
-	protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container) {
-		return inflater.inflate(R.layout.fragment_schedule, container, false);
+	protected void initData() {
+		initDate();
 	}
 
 	@Override
-	protected void bindView() {
-		slSchedule = searchViewById(R.id.slSchedule);
-		etInputContent = searchViewById(R.id.etInputContent);
-		rLNoTask = searchViewById(R.id.rlNoTask);
-		slSchedule.setOnCalendarClickListener(this);
-		searchViewById(R.id.ibMainClock).setOnClickListener(this);
-		searchViewById(R.id.ibMainOk).setOnClickListener(this);
+	protected int getLayoutId() {
+		return R.layout.fragment_schedule;
+	}
+
+	@Override
+	protected void initView(View view, Bundle savedInstanceState) {
 		initScheduleList();
 		initBottomInputBar();
 	}
 
 	@Override
-	protected void initData() {
-		super.initData();
-		initDate();
+	protected void initEvent() {
+		slSchedule.setOnCalendarClickListener(this);
 	}
 
 	@Override
-	protected void bindData() {
-		super.bindData();
+	protected void requestData() {
+
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
 		resetScheduleList();
 	}
 
 	public void resetScheduleList() {
-		new LoadScheduleTask(mActivity, this, mCurrentSelectYear, mCurrentSelectMonth,
+		new LoadScheduleTask(getCurrentActivity(), this, mCurrentSelectYear, mCurrentSelectMonth,
 				mCurrentSelectDay).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
 
@@ -95,8 +102,22 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
 
 	@Override
 	public void onClickDate(int year, int month, int day) {
-		setCurrentSelectDate(year, month, day);
-		resetScheduleList();
+		Log.i(TAG, "onClickDate()_year:" + year + ", month:" + month + ", day:" + day);
+		analyseOperation(year, month, day);
+	}
+
+	private void analyseOperation(int year, int month, int day) {
+		switch (MainActivity.operation) {
+			case 0:
+				setCurrentSelectDate(year, month, day);
+				resetScheduleList();
+				break;
+			default:
+				if (getCurrentActivity() instanceof MainActivity) {
+					((MainActivity) getCurrentActivity()).recordOperation(year, month, day);
+				}
+				break;
+		}
 	}
 
 	@Override
@@ -106,13 +127,13 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
 
 	private void initScheduleList() {
 		rvScheduleList = slSchedule.getSchedulerRecyclerView();
-		LinearLayoutManager manager = new LinearLayoutManager(mActivity);
+		LinearLayoutManager manager = new LinearLayoutManager(getCurrentActivity());
 		manager.setOrientation(LinearLayoutManager.VERTICAL);
 		rvScheduleList.setLayoutManager(manager);
 		DefaultItemAnimator itemAnimator = new DefaultItemAnimator();
 		itemAnimator.setSupportsChangeAnimations(false);
 		rvScheduleList.setItemAnimator(itemAnimator);
-		mScheduleAdapter = new ScheduleAdapter(mActivity, this);
+		mScheduleAdapter = new ScheduleAdapter(getCurrentActivity(), this);
 		rvScheduleList.setAdapter(mScheduleAdapter);
 	}
 
@@ -142,6 +163,7 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
 		});
 	}
 
+	@OnClick({R.id.ibMainClock, R.id.ibMainOk})
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -155,19 +177,20 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
 	}
 
 	private void showSelectDateDialog() {
-		new SelectDateDialog(mActivity, this, mCurrentSelectYear, mCurrentSelectMonth,
+		new SelectDateDialog(getCurrentActivity(), this, mCurrentSelectYear, mCurrentSelectMonth,
 				mCurrentSelectDay, slSchedule.getMonthCalendar().getCurrentItem()).show();
 	}
 
 	private void closeSoftInput() {
 		etInputContent.clearFocus();
-		DeviceUtils.closeSoftInput(mActivity, etInputContent);
+		DeviceUtils.closeSoftInput(getCurrentActivity(), etInputContent);
 	}
 
 	private void addSchedule() {
 		String content = etInputContent.getText().toString();
 		if (TextUtils.isEmpty(content)) {
-			ToastUtils.showShortToast(mActivity, R.string.schedule_input_content_is_no_null);
+			ToastUtils.showShortToast(getCurrentActivity(), R.string
+					.schedule_input_content_is_no_null);
 		} else {
 			closeSoftInput();
 			Schedule schedule = new Schedule();
@@ -177,7 +200,7 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
 			schedule.setYear(mCurrentSelectYear);
 			schedule.setMonth(mCurrentSelectMonth);
 			schedule.setDay(mCurrentSelectDay);
-			new AddScheduleTask(mActivity, new OnTaskFinishedListener<Schedule>() {
+			new AddScheduleTask(getCurrentActivity(), new OnTaskFinishedListener<Schedule>() {
 				@Override
 				public void onTaskFinished(Schedule data) {
 					if (data != null) {
@@ -196,8 +219,8 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
 		mCurrentSelectYear = year;
 		mCurrentSelectMonth = month;
 		mCurrentSelectDay = day;
-		if (mActivity instanceof MainActivity) {
-			((MainActivity) mActivity).resetMainTitleDate(year, month, day);
+		if (getCurrentActivity() instanceof MainActivity) {
+			((MainActivity) getCurrentActivity()).resetMainTitleDate(year, month, day);
 		}
 	}
 

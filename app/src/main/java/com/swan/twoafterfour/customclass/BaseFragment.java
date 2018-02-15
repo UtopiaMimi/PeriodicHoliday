@@ -4,14 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.swan.twoafterfour.utils.ActivityManager;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
 
@@ -19,10 +20,16 @@ import butterknife.ButterKnife;
  * 基础 Fragment
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
 	private final String TAG = "BaseFragment";
 
 	private Bundle bundle;
+
+	public BaseActivity activity;
+
+	public View mRootView;
+
+	private boolean isActive;
 
 	public Bundle getBundle() {
 		return bundle == null ? new Bundle() : bundle;
@@ -30,6 +37,10 @@ public abstract class BaseFragment extends Fragment {
 
 	public void setBundle(Bundle bundle) {
 		this.bundle = bundle;
+	}
+
+	public boolean isActive() {
+		return isActive;
 	}
 
 	public Context getBaseContext() {
@@ -40,40 +51,79 @@ public abstract class BaseFragment extends Fragment {
 		return ActivityManager.getInstance().currentActivity();
 	}
 
+//	public GifView getLoadingGif() {
+//		return getCurrentActivity().loadingGif;
+//	}
+//
+//	public void setLoadingGifVisible() {
+//		getLoadingGif().setVisibility(View.VISIBLE);
+//	}
+//
+//	public void setLoadingGifGone() {
+//		getLoadingGif().setVisibility(View.GONE);
+//	}
+//
+//	public WinShareRoomService getService() {
+//		return getCurrentActivity().mService;
+//	}
+
 	@Override
 	public void onAttach(Context context) {
 		super.onAttach(context);
-		Log.d(TAG, "onAttach: " + context.toString());
+		LogUtils.d(TAG, "onAttach: " + context.toString());
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		initData();
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-			Bundle
-			savedInstanceState) {
-		View view = inflater.inflate(getLayoutId(), container, false);
-		ButterKnife.bind(this, view);
-		initView(view, savedInstanceState);
-		return view;
+			Bundle savedInstanceState) {
+		Log.d(TAG, "onCreateView: ");
+		mRootView = inflater.inflate(getLayoutId(), container, false);
+		ButterKnife.bind(this, mRootView);
+		initView(mRootView, savedInstanceState);
+		return mRootView;
 	}
 
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		Log.d(TAG, "onViewCreated: ");
 		super.onViewCreated(view, savedInstanceState);
 		initEvent();
 		requestData();
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		isActive = true;
+		Log.d(TAG, "onResume: isActive = true");
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		Log.d(TAG, "onPause: isActive = false");
+		isActive = false;
+	}
+
+	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-//		getCurrentActivity().loadingGif.setVisibility(View.GONE);
+		if (getCurrentActivity() != null) {
+//			getCurrentActivity().loadingGif.setVisibility(View.GONE);
+		}
 	}
 
 	/**
