@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+	<dbname value='DaysCache'></dbname>
+
+	<version value='1'></version>
+
+	<list>
+		<mapping class="com.jeek.calendar.widget.calendar.entity.Day"></mapping>
+	</list>
+</litepal>

@@ -24,4 +24,5 @@ dependencies {
     api project(':common')
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'joda-time:joda-time:2.9.4'
+    api 'org.litepal.android:core:1.6.0'
 }

@@ -119,8 +119,8 @@ public class WeekView extends View {
 					.WeekCalendarView_week_show_holiday_hint, true);
 
 			periodicDayOffColor = array.getColor(R.styleable
-					.WeekCalendarView_week_selected_circle_today_color, Color.parseColor
-					("#FF00FF"));
+					.WeekCalendarView_week_periodic_day_off_circle_color, Color.parseColor
+					("#00FFFF"));
 		} else {
 			mSelectDayColor = Color.parseColor("#FFFFFF");
 			mSelectBGColor = Color.parseColor("#E8E8E8");
@@ -136,7 +136,7 @@ public class WeekView extends View {
 			mIsShowLunar = true;
 			mIsShowHolidayHint = true;
 
-			periodicDayOffColor = Color.parseColor("#FF00FF");
+			periodicDayOffColor = Color.parseColor("#00FFFF");
 		}
 		mStartDate = dateTime;
 		mRestBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_rest_day);

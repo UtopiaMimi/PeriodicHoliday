@@ -175,7 +175,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 						if (data) {
 							removeItem(schedule);
 							if (mBaseFragment instanceof ScheduleFragment) {
-								((ScheduleFragment) mBaseFragment).resetScheduleList();
+//								((ScheduleFragment) mBaseFragment).resetScheduleList();
 							}
 						}
 					}

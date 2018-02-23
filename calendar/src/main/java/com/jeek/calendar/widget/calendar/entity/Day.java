@@ -1,10 +1,12 @@
-package com.swan.twoafterfour.entity;
+package com.jeek.calendar.widget.calendar.entity;
+
+import org.litepal.crud.DataSupport;
 
 /**
  * Created by Swan on 2018/1/25 19:14.
  */
 
-public class Day {
+public class Day extends DataSupport {
 	private int year;
 	private int month;
 	private int day;

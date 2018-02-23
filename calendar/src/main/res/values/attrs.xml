@@ -22,6 +22,8 @@
 		<attr name="month_show_lunar" format="boolean"/>
 		<attr name="month_show_holiday_hint" format="boolean"/>
 		<attr name="month_count" format="integer"/>
+		<attr name="month_periodic_day_off_circle_color" format="color"/>
+		<attr name="month_periodic_day_off_text_color" format="color"/>
 	</declare-styleable>
 
 	<declare-styleable name="WeekCalendarView">
@@ -39,6 +41,8 @@
 		<attr name="week_show_lunar" format="boolean"/>
 		<attr name="week_show_holiday_hint" format="boolean"/>
 		<attr name="week_count" format="integer"/>
+		<attr name="week_periodic_day_off_circle_color" format="color"/>
+		<attr name="week_periodic_day_off_text_color" format="color"/>
 	</declare-styleable>
 
 	<declare-styleable name="ScheduleLayout">

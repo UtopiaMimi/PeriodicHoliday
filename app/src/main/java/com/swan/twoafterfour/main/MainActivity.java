@@ -15,17 +15,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jeek.calendar.widget.calendar.entity.Day;
 import com.jimmy.common.bean.EventSet;
 import com.jimmy.common.listener.OnTaskFinishedListener;
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.customclass.BaseActivity;
 import com.swan.twoafterfour.customclass.BaseFragment;
-import com.swan.twoafterfour.entity.Day;
 import com.swan.twoafterfour.task.eventset.LoadEventSetTask;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,6 +55,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	TextView tvTitle;
 	@BindView(R.id.tvMenuTitle)
 	TextView tvMenuTitle;
+	@BindView(R.id.right_menu_ib)
+	ImageButton rightMenuIb;
+	@BindView(R.id.right_top_tv)
+	TextView rightTopTv;
 	@BindView(R.id.rvMenuEventSetList)
 	RecyclerView rvMenuEventSetList;
 
@@ -67,8 +74,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	private int mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay;
 
 	public static int operation;
-
-	List<Day> periodicDaysOff;
 
 	@Override
 	protected int getLayoutResource() {
@@ -134,7 +139,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	}
 
 	protected void initData() {
-		periodicDaysOff = new ArrayList<>();
 		resetMainTitleDate(mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay);
 		new LoadEventSetTask(this, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 	}
@@ -176,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	protected void recordOperation(int year, int month, int day) {
 		switch (operation) {
 			case 1:
-				periodicDaysOff.add(new Day(year, month, day, MainActivity.operation));
+				new Day(year, month, day, MainActivity.operation).save();
 				break;
 			default:
 				break;
@@ -184,7 +188,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	}
 
 	@OnClick({R.id.ivMainMenu, R.id.llMenuSchedule, R.id.llMenuNoCategory, R.id
-			.tvMenuAddEventSet, R.id.rightMenuIb})
+			.tvMenuAddEventSet, R.id.right_menu_ib, R.id.right_top_tv})
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -202,8 +206,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 			case R.id.tvMenuAddEventSet:
 				gotoAddEventSetActivity();
 				break;
-			case R.id.rightMenuIb:
+			case R.id.right_menu_ib:
 				operation = 1;
+				rightMenuIb.setVisibility(View.GONE);
+				rightTopTv.setVisibility(View.VISIBLE);
+				break;
+			case R.id.right_top_tv:
+				operation = 0;
+				DataSupport.deleteAll(Day.class);
+				rightTopTv.setVisibility(View.GONE);
+				rightMenuIb.setVisibility(View.VISIBLE);
 				break;
 			default:
 				break;

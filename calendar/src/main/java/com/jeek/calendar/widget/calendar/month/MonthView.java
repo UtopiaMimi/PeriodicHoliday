@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,8 +18,12 @@ import android.view.View;
 import com.jeek.calendar.library.R;
 import com.jeek.calendar.widget.calendar.CalendarUtils;
 import com.jeek.calendar.widget.calendar.LunarCalendarUtils;
+import com.jeek.calendar.widget.calendar.entity.Day;
 import com.jimmy.common.data.ScheduleDao;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -59,7 +64,10 @@ public class MonthView extends View {
 	private GestureDetector mGestureDetector;
 	private Bitmap mRestBitmap, mWorkBitmap;
 
-	private int periodicDayOffColor;
+	private int periodicDayOffCircleColor;
+	private int periodicDayOffTextColor;
+
+	List<Day> periodicDaysOff;
 
 	public MonthView(Context context, int year, int month) {
 		this(context, null, year, month);
@@ -81,6 +89,7 @@ public class MonthView extends View {
 		initMonth();
 		initGestureDetector();
 		initTaskHint();
+		periodicDaysOff = new ArrayList<>();
 	}
 
 	private void initTaskHint() {
@@ -139,9 +148,12 @@ public class MonthView extends View {
 			mIsShowHolidayHint = array.getBoolean(R.styleable
 					.MonthCalendarView_month_show_holiday_hint, true);
 
-			periodicDayOffColor = array.getColor(R.styleable
-					.WeekCalendarView_week_selected_circle_today_color, Color.parseColor
-					("#FF00FF"));
+			periodicDayOffCircleColor = array.getColor(R.styleable
+					.MonthCalendarView_month_periodic_day_off_circle_color, Color.parseColor
+					("#00FFFF"));
+			periodicDayOffTextColor = array.getColor(R.styleable
+					.MonthCalendarView_month_periodic_day_off_text_color, Color.parseColor
+					("#FFFF00"));
 		} else {
 			mSelectDayColor = Color.parseColor("#FFFFFF");
 			mSelectBGColor = Color.parseColor("#E8E8E8");
@@ -157,7 +169,8 @@ public class MonthView extends View {
 			mIsShowLunar = true;
 			mIsShowHolidayHint = true;
 
-			periodicDayOffColor = Color.parseColor("#FF00FF");
+			periodicDayOffCircleColor = Color.parseColor("#00FFFF");
+			periodicDayOffTextColor = Color.parseColor("#FFFF00");
 		}
 		mSelYear = year;
 		mSelMonth = month;
@@ -262,7 +275,6 @@ public class MonthView extends View {
 		int monthDays = CalendarUtils.getMonthDays(mSelYear, mSelMonth);
 		int weekNumber = CalendarUtils.getFirstDayWeek(mSelYear, mSelMonth);
 		for (int day = 0; day < monthDays; day++) {
-			int color = chooseColor(day);
 			dayString = String.valueOf(day + 1);
 			int col = (day + weekNumber - 1) % 7;
 			int row = (day + weekNumber - 1) / 7;
@@ -271,31 +283,64 @@ public class MonthView extends View {
 					/ 2);
 			int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent
 					()) / 2);
+
+			int status = checkStatus(day + 1);
+
 			// 背景颜色
-			if (dayString.equals(String.valueOf(mSelDay))) {
-				int startRecX = mColumnSize * col;
-				int startRecY = mRowSize * row;
-				int endRecX = startRecX + mColumnSize;
-				int endRecY = startRecY + mRowSize;
-				if (mSelYear == mCurrYear && mCurrMonth == mSelMonth && day + 1 == mCurrDay) {
-					mPaint.setColor(mSelectBGTodayColor);
-				} else {
-					mPaint.setColor(mSelectBGColor);
-				}
-				canvas.drawCircle((startRecX + endRecX) / 2, (startRecY + endRecY) / 2,
-						mSelectCircleSize, mPaint);
-				mWeekRow = row + 1;
+			Log.d(TAG, "drawThisMonth()_mSelDay:" + mSelDay);
+			Log.d(TAG, "drawThisMonth()_dayString:" + dayString);
+			int startRecX = mColumnSize * col;
+			int startRecY = mRowSize * row;
+			int endRecX = startRecX + mColumnSize;
+			int endRecY = startRecY + mRowSize;
+			switch (status) {
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					Log.d(TAG, "drawThisMonth: case 1-1");
+					mPaint.setColor(periodicDayOffCircleColor);
+					canvas.drawCircle((startRecX + endRecX) / 2, (startRecY + endRecY) / 2,
+							mSelectCircleSize, mPaint);
+					break;
+				default:
+					Log.d(TAG, "drawThisMonth: case 1-default");
+					if (dayString.equals(String.valueOf(mSelDay))) {
+						if (mSelYear == mCurrYear && mCurrMonth == mSelMonth && day + 1 ==
+								mCurrDay) {
+							mPaint.setColor(mSelectBGTodayColor);
+						} else {
+							mPaint.setColor(mSelectBGColor);
+						}
+						canvas.drawCircle((startRecX + endRecX) / 2, (startRecY + endRecY) / 2,
+								mSelectCircleSize, mPaint);
+						mWeekRow = row + 1;
+					}
+					break;
 			}
+
 			// 数字颜色
-			if (dayString.equals(String.valueOf(mSelDay))) {
-				selectedPoint[0] = row;
-				selectedPoint[1] = col;
-				mPaint.setColor(mSelectDayColor);
-			} else if (dayString.equals(String.valueOf(mCurrDay)) && mCurrDay != mSelDay &&
-					mCurrMonth == mSelMonth && mCurrYear == mSelYear) {
-				mPaint.setColor(mCurrentDayColor);
-			} else {
-				mPaint.setColor(mNormalDayColor);
+			switch (status) {
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					Log.d(TAG, "drawThisMonth: case 2-1");
+					mPaint.setColor(periodicDayOffTextColor);
+					break;
+				default:
+					Log.d(TAG, "drawThisMonth: case 2-default");
+					if (dayString.equals(String.valueOf(mSelDay))) {
+						selectedPoint[0] = row;
+						selectedPoint[1] = col;
+						mPaint.setColor(mSelectDayColor);
+					} else if (dayString.equals(String.valueOf(mCurrDay)) && mCurrDay != mSelDay &&
+							mCurrMonth == mSelMonth && mCurrYear == mSelYear) {
+						mPaint.setColor(mCurrentDayColor);
+					} else {
+						mPaint.setColor(mNormalDayColor);
+					}
+					break;
 			}
 			canvas.drawText(dayString, startX, startY, mPaint);
 			mHolidayOrLunarText[row][col] = CalendarUtils.getHolidayFromSolar(mSelYear, mSelMonth,
@@ -304,12 +349,24 @@ public class MonthView extends View {
 		return selectedPoint;
 	}
 
-	private int chooseColor(int day) {
-//		for (Day recordDay :
-//				) {
-//
-//		}
+	private int checkStatus(int day) {
+		periodicDaysOff = DataSupport.findAll(Day.class);
+		for (Day recordDay :
+				periodicDaysOff) {
+			Log.d(TAG, "checkStatus: \nrecordDay.getYear()" + recordDay.getYear()
+					+ "\nmSelYear:" + mSelYear + "\nrecordDay.getMonth():" + recordDay.getMonth()
+					+ "\nmSelMonth:" + mSelMonth + "\nrecordDay.getDay():" + recordDay
+					.getDay() + "\nday:" + day);
+			if (recordDay.getYear() == mSelYear && recordDay.getMonth() == mSelMonth && recordDay
+					.getDay() == day) {
+				Log.d(TAG, "checkStatus()_recordDay.getStatus():" + recordDay.getStatus());
+				return recordDay.getStatus();
+			}
+		}
 		return 0;
+	}
+
+	private void drawDefault() {
 	}
 
 	private void drawNextMonth(Canvas canvas) {

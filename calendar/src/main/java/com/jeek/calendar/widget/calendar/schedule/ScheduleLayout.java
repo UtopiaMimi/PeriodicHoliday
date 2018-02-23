@@ -38,7 +38,7 @@ public class ScheduleLayout extends FrameLayout {
 	private WeekCalendarView wcvCalendar;
 	private RelativeLayout rlMonthCalendar;
 	private RelativeLayout rlScheduleList;
-	private ScheduleRecyclerView rvScheduleList;
+//	private ScheduleRecyclerView rvScheduleList;
 
 	private int mCurrentSelectYear;
 	private int mCurrentSelectMonth;
@@ -99,7 +99,7 @@ public class ScheduleLayout extends FrameLayout {
 		wcvCalendar = (WeekCalendarView) findViewById(R.id.wcvCalendar);
 		rlMonthCalendar = (RelativeLayout) findViewById(R.id.rlMonthCalendar);
 		rlScheduleList = (RelativeLayout) findViewById(R.id.rlScheduleList);
-		rvScheduleList = (ScheduleRecyclerView) findViewById(R.id.rvScheduleList);
+//		rvScheduleList = (ScheduleRecyclerView) findViewById(R.id.rvScheduleList);
 		bindingMonthAndWeekCalendar();
 	}
 
@@ -283,19 +283,19 @@ public class ScheduleLayout extends FrameLayout {
 				float y = ev.getRawY();
 				float distanceX = Math.abs(x - mDownPosition[0]);
 				float distanceY = Math.abs(y - mDownPosition[1]);
-				if (distanceY > mMinDistance && distanceY > distanceX * 2.0f) {
-					return (y > mDownPosition[1] && isRecyclerViewTouch()) || (y <
-							mDownPosition[1] && mState == ScheduleState.OPEN);
-				}
+//				if (distanceY > mMinDistance && distanceY > distanceX * 2.0f) {
+//					return (y > mDownPosition[1] && isRecyclerViewTouch()) || (y <
+//							mDownPosition[1] && mState == ScheduleState.OPEN);
+//				}
 				break;
 		}
 		return super.onInterceptTouchEvent(ev);
 	}
 
-	private boolean isRecyclerViewTouch() {
-		return mState == ScheduleState.CLOSE && (rvScheduleList.getChildCount() == 0 ||
-				rvScheduleList.isScrollTop());
-	}
+//	private boolean isRecyclerViewTouch() {
+//		return mState == ScheduleState.CLOSE && (rvScheduleList.getChildCount() == 0 ||
+//				rvScheduleList.isScrollTop());
+//	}
 
 
 	@Override
@@ -600,9 +600,9 @@ public class ScheduleLayout extends FrameLayout {
 		}
 	}
 
-	public ScheduleRecyclerView getSchedulerRecyclerView() {
-		return rvScheduleList;
-	}
+//	public ScheduleRecyclerView getSchedulerRecyclerView() {
+//		return rvScheduleList;
+//	}
 
 	public MonthCalendarView getMonthCalendar() {
 		return mcvCalendar;
