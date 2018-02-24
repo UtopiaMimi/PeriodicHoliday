@@ -5,6 +5,6 @@
 	<version value='1'></version>
 
 	<list>
-		<mapping class="com.jeek.calendar.widget.calendar.entity.Day"></mapping>
+		<mapping class="com.jeek.calendar.widget.calendar.entity.CacheDay"></mapping>
 	</list>
 </litepal>

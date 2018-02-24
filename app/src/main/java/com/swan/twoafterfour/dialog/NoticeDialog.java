@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.swan.twoafterfour.R;
+import com.swan.twoafterfour.customclass.BaseDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;

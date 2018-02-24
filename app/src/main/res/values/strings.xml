@@ -1,57 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">做四休二</string>
-	<string name="logo">Logo</string>
-	<string name="IMEI">IMEI</string>
+	<!--<string name="app_name">做四休二</string>-->
+	<!--<string name="logo">Logo</string>-->
+	<!--<string name="IMEI">IMEI</string>-->
 
 
-	<string name="return_back">返回</string>
-	<string name="exit">退出</string>
+	<!--<string name="return_back">返回</string>-->
+	<!--<string name="exit">退出</string>-->
 
 
-	<string name="double_click">再次点击退出程序</string>
-	<string name="exit_confirm">是否确定退出当前账号？</string>
+	<!--<string name="double_click">再次点击退出程序</string>-->
+	<!--<string name="exit_confirm">是否确定退出当前账号？</string>-->
 
 
-	<string name="day">天</string>
-	<!--<string name="hour">小时</string>-->
-	<string name="minute">分钟</string>
-	<string name="date_month_day">%1$d月%2$d日</string>
-	<string name="date_year_month">%1$d年%2$d月</string>
+	<!--&lt;!&ndash;<string name="hour">小时</string>&ndash;&gt;-->
+	<!--<string name="minute">分钟</string>-->
+	<!--<string name="date_month_day">%1$d月%2$d日</string>-->
+	<!--<string name="date_year_month">%1$d年%2$d月</string>-->
 
 
-	<string name="no_network">当前网络不可用，请检查网络！</string>
-	<string name="connect_exception">网络连接失败，请重试！</string>
-	<string name="no_more">掘地三尺也没有啦~</string>
+	<!--<string name="no_network">当前网络不可用，请检查网络！</string>-->
+	<!--<string name="connect_exception">网络连接失败，请重试！</string>-->
+	<!--<string name="no_more">掘地三尺也没有啦~</string>-->
 
 
-	<string name="image_login">登录图标</string>
-	<string name="image_left_top">左上角图标</string>
-	<string name="image_right_top">右上角图标</string>
-	<string name="image_center_on_bar">标题栏中心图标</string>
+	<!--<string name="image_login">登录图标</string>-->
+	<!--<string name="image_left_top">左上角图标</string>-->
+	<!--<string name="image_right_top">右上角图标</string>-->
+	<!--<string name="image_center_on_bar">标题栏中心图标</string>-->
 
 
-	<string name="update_hint">软件更新提醒</string>
-	<string name="introduction_title">新版特性：</string>
-	<string name="another_time">下次再说</string>
-	<string name="update_now">立即更新</string>
-	<string name="updating">下载中，请稍后。</string>
-	<string name="cancel_update">取消更新</string>
-	<string name="download_error">下载失败</string>
-	<string name="version_update">版本更新</string>
-	<string name="about_us_newest_version">已经是最新版啦～</string>
+	<!--<string name="update_hint">软件更新提醒</string>-->
+	<!--<string name="introduction_title">新版特性：</string>-->
+	<!--<string name="another_time">下次再说</string>-->
+	<!--<string name="update_now">立即更新</string>-->
+	<!--<string name="updating">下载中，请稍后。</string>-->
+	<!--<string name="cancel_update">取消更新</string>-->
+	<!--<string name="download_error">下载失败</string>-->
+	<!--<string name="version_update">版本更新</string>-->
+	<!--<string name="about_us_newest_version">已经是最新版啦～</string>-->
 
 
-	<string name="login_input_phone_number">请输入手机号</string>
-	<string name="login_input_verification_code">请输入验证码</string>
-	<string name="login_obtain_verification_code">获取验证码</string>
-	<string name="login_enter">进入</string>
-	<string name="login_accept_agreement_hint">点击进入即表明您同意</string>
-	<string name="login_agreement">《用户使用条款》</string>
-	<string name="service_agreement">服务协议</string>
-	<string name="phone_number_error">手机号格式不正确</string>
-	<string name="verification_code_error">验证码不正确</string>
-	<string name="send_successful">发送成功</string>
+	<!--<string name="login_input_phone_number">请输入手机号</string>-->
+	<!--<string name="login_input_verification_code">请输入验证码</string>-->
+	<!--<string name="login_obtain_verification_code">获取验证码</string>-->
+	<!--<string name="login_enter">进入</string>-->
+	<!--<string name="login_accept_agreement_hint">点击进入即表明您同意</string>-->
+	<!--<string name="login_agreement">《用户使用条款》</string>-->
+	<!--<string name="service_agreement">服务协议</string>-->
+	<!--<string name="phone_number_error">手机号格式不正确</string>-->
+	<!--<string name="verification_code_error">验证码不正确</string>-->
+	<!--<string name="send_successful">发送成功</string>-->
+
+
+	<string name="set_periodic_day_off">Set periodic day off</string>
+	<string name="period_is">Period is</string>
+	<string name="day">days.</string>
 
 
 </resources>

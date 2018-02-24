@@ -18,7 +18,7 @@ import android.view.View;
 import com.jeek.calendar.library.R;
 import com.jeek.calendar.widget.calendar.CalendarUtils;
 import com.jeek.calendar.widget.calendar.LunarCalendarUtils;
-import com.jeek.calendar.widget.calendar.entity.Day;
+import com.jeek.calendar.widget.calendar.entity.CacheDay;
 import com.jimmy.common.data.ScheduleDao;
 
 import org.litepal.crud.DataSupport;
@@ -67,7 +67,7 @@ public class MonthView extends View {
 	private int periodicDayOffCircleColor;
 	private int periodicDayOffTextColor;
 
-	List<Day> periodicDaysOff;
+	List<CacheDay> periodicDaysOff;
 
 	public MonthView(Context context, int year, int month) {
 		this(context, null, year, month);
@@ -350,17 +350,19 @@ public class MonthView extends View {
 	}
 
 	private int checkStatus(int day) {
-		periodicDaysOff = DataSupport.findAll(Day.class);
-		for (Day recordDay :
+		periodicDaysOff = DataSupport.findAll(CacheDay.class);
+		for (CacheDay recordCacheDay :
 				periodicDaysOff) {
-			Log.d(TAG, "checkStatus: \nrecordDay.getYear()" + recordDay.getYear()
-					+ "\nmSelYear:" + mSelYear + "\nrecordDay.getMonth():" + recordDay.getMonth()
-					+ "\nmSelMonth:" + mSelMonth + "\nrecordDay.getDay():" + recordDay
+			Log.d(TAG, "checkStatus: \nrecordCacheDay.getYear()" + recordCacheDay.getYear()
+					+ "\nmSelYear:" + mSelYear + "\nrecordCacheDay.getMonth():" + recordCacheDay
+					.getMonth()
+					+ "\nmSelMonth:" + mSelMonth + "\nrecordCacheDay.getDay():" + recordCacheDay
 					.getDay() + "\nday:" + day);
-			if (recordDay.getYear() == mSelYear && recordDay.getMonth() == mSelMonth && recordDay
+			if (recordCacheDay.getYear() == mSelYear && recordCacheDay.getMonth() == mSelMonth &&
+					recordCacheDay
 					.getDay() == day) {
-				Log.d(TAG, "checkStatus()_recordDay.getStatus():" + recordDay.getStatus());
-				return recordDay.getStatus();
+				Log.d(TAG, "checkStatus()_recordDay.getStatus():" + recordCacheDay.getStatus());
+				return recordCacheDay.getStatus();
 			}
 		}
 		return 0;

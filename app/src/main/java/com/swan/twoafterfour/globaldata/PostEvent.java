@@ -9,8 +9,7 @@ public class PostEvent {
 
 	public static final String TAG = "PostEvent";
 
-	public static final int MY_ORDER_STATUS_CHANGED = 1;
-
-	public static final int LOGIN_SUCCESS = 2;
+	public static final int LOGIN_SUCCESS = 1;
+	public static final int SET_PERIOD = 2;
 
 }

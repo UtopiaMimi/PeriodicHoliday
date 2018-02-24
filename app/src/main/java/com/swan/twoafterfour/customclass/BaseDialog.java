@@ -1,4 +1,4 @@
-package com.swan.twoafterfour.dialog;
+package com.swan.twoafterfour.customclass;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -48,11 +48,6 @@ public abstract class BaseDialog extends Dialog {
 				LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 		ButterKnife.bind(this, view);
 		initData(view);
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
 	}
 
 	protected abstract void initData(View view);

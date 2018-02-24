@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
  * Created by Swan on 2017/10/22.
  */
 
-public class KeyBoardUtils {
+public class KeyboardUtils {
 
 	/**
 	 * 延迟操作输入法——如果显示则隐藏，反之则显示 目前只用于进入编辑页面时自动弹出（页面跳转前是隐藏状态）

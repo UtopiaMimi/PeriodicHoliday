@@ -1,12 +1,13 @@
-package com.jeek.calendar.widget.calendar.entity;
+package com.swan.twoafterfour.entity;
 
-import org.litepal.crud.DataSupport;
+import cn.bmob.v3.BmobObject;
 
 /**
+ * 与 Bmob 服务器数据表对应的类
  * Created by Swan on 2018/1/25 19:14.
  */
 
-public class Day extends DataSupport {
+public class Day extends BmobObject {
 	private int year;
 	private int month;
 	private int day;
@@ -27,7 +28,6 @@ public class Day extends DataSupport {
 	public int getMonth() {
 		return month;
 	}
-
 	public void setMonth(int month) {
 		this.month = month;
 	}

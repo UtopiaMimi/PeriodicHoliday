@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -20,12 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jeek.calendar.widget.calendar.entity.Day;
+import com.jeek.calendar.widget.calendar.entity.CacheDay;
 import com.jimmy.common.bean.EventSet;
 import com.jimmy.common.listener.OnTaskFinishedListener;
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.customclass.BaseActivity;
 import com.swan.twoafterfour.customclass.BaseFragment;
+import com.swan.twoafterfour.globaldata.PostEvent;
+import com.swan.twoafterfour.popupwindow.OperationPopupWindow;
 import com.swan.twoafterfour.task.eventset.LoadEventSetTask;
 
 import org.litepal.crud.DataSupport;
@@ -36,6 +39,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,
 		OnTaskFinishedListener<List<EventSet>> {
@@ -75,6 +80,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
 	public static int operation;
 
+	@Subscribe
+	protected void subscribeSetPeriod(Bundle bundle) {
+		if (bundle.getInt(PostEvent.TAG) == PostEvent.SET_PERIOD) {
+			setPeriodicDayOff();
+		}
+	}
+
+	private void setPeriodicDayOff() {
+		operation = 1;
+		rightMenuIb.setVisibility(View.GONE);
+		rightTopTv.setVisibility(View.VISIBLE);
+	}
+
 	@Override
 	protected int getLayoutResource() {
 		return R.layout.activity_main;
@@ -87,6 +105,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 		gotoScheduleFragment();
 		initBroadcastReceiver();
 		initData();
+		EventBus.getDefault().register(this);
 	}
 
 	private void initUi() {
@@ -180,15 +199,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 	protected void recordOperation(int year, int month, int day) {
 		switch (operation) {
 			case 1:
-				new Day(year, month, day, MainActivity.operation).save();
+				new CacheDay(year, month, day, MainActivity.operation).save();
 				break;
 			default:
 				break;
 		}
 	}
 
-	@OnClick({R.id.ivMainMenu, R.id.llMenuSchedule, R.id.llMenuNoCategory, R.id
-			.tvMenuAddEventSet, R.id.right_menu_ib, R.id.right_top_tv})
+	@OnClick({R.id.ivMainMenu, R.id.llMenuSchedule, R.id.llMenuNoCategory, R.id.tvMenuAddEventSet,
+			R.id.right_menu_ib, R.id.right_top_tv})
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -207,19 +226,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 				gotoAddEventSetActivity();
 				break;
 			case R.id.right_menu_ib:
-				operation = 1;
-				rightMenuIb.setVisibility(View.GONE);
-				rightTopTv.setVisibility(View.VISIBLE);
+				showPopupWindow();
 				break;
 			case R.id.right_top_tv:
 				operation = 0;
-				DataSupport.deleteAll(Day.class);
+				DataSupport.deleteAll(CacheDay.class);
 				rightTopTv.setVisibility(View.GONE);
 				rightMenuIb.setVisibility(View.VISIBLE);
 				break;
 			default:
 				break;
 		}
+	}
+
+	private void showPopupWindow() {
+		OperationPopupWindow popupWindow = new OperationPopupWindow(this);
+		popupWindow.show();
 	}
 
 	public void gotoEventSetFragment(EventSet eventSet) {
@@ -276,6 +298,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 		if (mAddEventSetBroadcastReceiver != null) {
 			unregisterReceiver(mAddEventSetBroadcastReceiver);
 			mAddEventSetBroadcastReceiver = null;
+		}
+		if (EventBus.getDefault().isRegistered(this)) {
+			EventBus.getDefault().unregister(this);
 		}
 		super.onDestroy();
 	}
