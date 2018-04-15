@@ -10,7 +10,7 @@ import android.webkit.WebView;
 
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.customclass.BaseActivity;
-import com.swan.twoafterfour.globaldata.GlobalData;
+import com.swan.twoafterfour.staticconstant.GlobalData;
 
 
 /**

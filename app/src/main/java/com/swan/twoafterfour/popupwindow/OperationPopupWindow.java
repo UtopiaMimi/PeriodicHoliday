@@ -31,8 +31,7 @@ public class OperationPopupWindow extends BasePopupWindow {
 		super(context, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,
 				android.R.style.Animation_InputMethod);
 		this.context = context;
-		view = LayoutInflater.from(context).inflate(R.layout.popupwindow_operation, null,
-				false);
+		view = LayoutInflater.from(context).inflate(R.layout.popupwindow_operation, null, false);
 		setContentView(view);
 		ButterKnife.bind(this, view);
 	}
@@ -47,7 +46,7 @@ public class OperationPopupWindow extends BasePopupWindow {
 		switch (v.getId()) {
 			case R.id.operation_set_periodic_day_off_tv:
 				new SetPeriodDialog(context).show();
-				KeyboardUtils.showKeyBoard(context);
+				KeyboardUtils.delayShowKeyBoard(context);
 				dismiss();
 				break;
 			case R.id.operation_cancel_tv:

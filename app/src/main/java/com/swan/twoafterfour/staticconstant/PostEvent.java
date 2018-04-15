@@ -1,4 +1,4 @@
-package com.swan.twoafterfour.globaldata;
+package com.swan.twoafterfour.staticconstant;
 
 /**
  * EventBus 发送的事件类型

@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.broadcastreceiver.NetworkStatusBroadcastReceiver;
-import com.swan.twoafterfour.globaldata.GlobalData;
-import com.swan.twoafterfour.globaldata.PostEvent;
 import com.swan.twoafterfour.globalmethod.GlobalMethod;
 import com.swan.twoafterfour.netutil.OkHttp3Util;
 import com.swan.twoafterfour.netutil.RequestObjectNetCallBack;
+import com.swan.twoafterfour.staticconstant.GlobalData;
+import com.swan.twoafterfour.staticconstant.PostEvent;
 import com.swan.twoafterfour.utils.SharedPreferencesManager;
 import com.swan.twoafterfour.utils.ToastUtils;
 

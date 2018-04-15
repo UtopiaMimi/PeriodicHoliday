@@ -27,8 +27,9 @@ import com.jimmy.common.listener.OnTaskFinishedListener;
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.customclass.BaseActivity;
 import com.swan.twoafterfour.customclass.BaseFragment;
-import com.swan.twoafterfour.globaldata.PostEvent;
+import com.swan.twoafterfour.entity.Day;
 import com.swan.twoafterfour.popupwindow.OperationPopupWindow;
+import com.swan.twoafterfour.staticconstant.PostEvent;
 import com.swan.twoafterfour.task.eventset.LoadEventSetTask;
 
 import org.litepal.crud.DataSupport;
@@ -50,6 +51,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
 	@BindView(R.id.dlMain)
 	DrawerLayout dlMain;
+	@BindView(R.id.ivMainMenu)
+	ImageButton leftMenuTb;
+	@BindView(R.id.left_top_tv)
+	TextView leftTopTv;
 	@BindView(R.id.llTitleDate)
 	LinearLayout llTitleDate;
 	@BindView(R.id.tvTitleMonth)
@@ -89,6 +94,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
 	private void setPeriodicDayOff() {
 		operation = 1;
+		leftMenuTb.setVisibility(View.GONE);
+		leftTopTv.setVisibility(View.VISIBLE);
 		rightMenuIb.setVisibility(View.GONE);
 		rightTopTv.setVisibility(View.VISIBLE);
 	}
@@ -206,13 +213,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 		}
 	}
 
-	@OnClick({R.id.ivMainMenu, R.id.llMenuSchedule, R.id.llMenuNoCategory, R.id.tvMenuAddEventSet,
-			R.id.right_menu_ib, R.id.right_top_tv})
+	@OnClick({R.id.ivMainMenu, R.id.left_top_tv, R.id.llMenuSchedule, R.id.llMenuNoCategory, R.id
+			.tvMenuAddEventSet, R.id.right_menu_ib, R.id.right_top_tv})
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.ivMainMenu:
 				dlMain.openDrawer(Gravity.START);
+				break;
+			case R.id.left_top_tv:
+				operationComplete();
 				break;
 			case R.id.llMenuSchedule:
 				gotoScheduleFragment();
@@ -229,14 +239,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 				showPopupWindow();
 				break;
 			case R.id.right_top_tv:
-				operation = 0;
-				DataSupport.deleteAll(CacheDay.class);
-				rightTopTv.setVisibility(View.GONE);
-				rightMenuIb.setVisibility(View.VISIBLE);
+				saveOperation();
+				operationComplete();
 				break;
 			default:
 				break;
 		}
+	}
+
+//	private void cancelOperation() {
+//		// TODO: 2018/2/26
+//	}
+
+	private void saveOperation() {
+		List<CacheDay> periodicDaysOffCache = DataSupport.findAll(CacheDay.class);
+		List<Day> periodicDaysOff = new ArrayList<>();
+		for (CacheDay cacheDay :
+				periodicDaysOffCache) {
+			periodicDaysOff.add(new Day(cacheDay.getYear(), cacheDay.getMonth(), cacheDay.getDay()
+					, cacheDay.getStatus()));
+		}
+		// TODO: 2018/4/15 上传数据
+	}
+
+	private void operationComplete() {
+		operation = 0;
+		DataSupport.deleteAll(CacheDay.class);
+		leftMenuTb.setVisibility(View.VISIBLE);
+		leftTopTv.setVisibility(View.GONE);
+		rightMenuIb.setVisibility(View.VISIBLE);
+		rightTopTv.setVisibility(View.GONE);
 	}
 
 	private void showPopupWindow() {

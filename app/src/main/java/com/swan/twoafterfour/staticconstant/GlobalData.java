@@ -1,4 +1,4 @@
-package com.swan.twoafterfour.globaldata;
+package com.swan.twoafterfour.staticconstant;
 
 /**
  * 静态数据类

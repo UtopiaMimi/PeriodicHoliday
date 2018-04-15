@@ -61,7 +61,7 @@
    *** get*();
 }
 
-# We want to keep methods in Activity that could be used in the XML attribute onClick
+# We want to keep methods in Event that could be used in the XML attribute onClick
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
 }
@@ -111,16 +111,18 @@
 
 #-------------------------------------------------------------------------
 
-#---------------------------------2. 第三方包-------------------------------
+#---------------------------------2. 第三方库-------------------------------
 -keep class org.apache.** {
     *;
 }
 
+# okhttp3
 -dontwarn okhttp3.logging.**
 -keep class okhttp3.internal.**{
     *;
 }
 -dontwarn okio.**
+# okhttp3
 
 -keep class java.nio.** {
     *;
@@ -133,6 +135,7 @@
 -keep class com.alipay.** {
     *;
 }
+-dontwarn com.alipay.**
 
 -dontwarn android.net.**
 -keep class android.net.SSLCertificateSocketFactory{*;}
@@ -142,17 +145,97 @@
 -dontwarn com.baidu.**
 
 -keep class com.ttlock.** {*;}
-#-dontwarn com.ttlock.**
+-dontwarn com.ttlock.**
 
+# butterknife
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+# butterknife
+
+# EventBus
+-keep class de.greenrobot.event.** {*;}
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {     #!static !transient ;
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+# EventBus
+
+# RegexUtils
 -keep class com.blankj.utilcode.** { *; }
 -keepclassmembers class com.blankj.utilcode.** { *; }
 -dontwarn com.blankj.utilcode.**
+# RegexUtils
 
-#-keep class butterknife.** { *; }
-#-dontwarn butterknife.internal.**
-#-keep class **$$ViewBinder { *; }
-#-keepclasseswithmembernames class * { @butterknife.* <fields>;}
-#-keepclasseswithmembernames class * { @butterknife.* <methods>;}
+# 极光推送
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
+# 极光推送
+
+# Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+# DexGuard 收费
+# for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+# for DexGuard only
+# Glide
+
+# AgentWeb
+-keep public class * extends android.webkit.WebChromeClient
+
+# rxlifecycle2/okhttp3/retrofit2
+-keep class javax.annotation.**{*;}
+-dontwarn javax.annotation.**
+# rxlifecycle2/okhttp3/retrofit2
+
+# retrofit2
+# Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+# Platform used when running on RoboVM on iOS. Will not be used at runtime.
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+# Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+# Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+# Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
+# retrofit2
+
+# matisse
+-dontwarn com.bumptech.glide.**
+-dontwarn com.squareup.picasso.**
+# matisse
+
+-keepattributes EnclosingMethod
 
 #-------------------------------------------------------------------------
 

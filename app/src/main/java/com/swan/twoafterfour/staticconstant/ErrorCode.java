@@ -1,4 +1,4 @@
-package com.swan.twoafterfour.globaldata;
+package com.swan.twoafterfour.staticconstant;
 
 /**
  * Created by TongYuliang on 2017/10/18.

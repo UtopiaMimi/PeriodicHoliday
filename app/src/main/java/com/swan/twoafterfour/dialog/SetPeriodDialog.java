@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.swan.twoafterfour.R;
 import com.swan.twoafterfour.customclass.BaseDialog;
-import com.swan.twoafterfour.globaldata.PostEvent;
+import com.swan.twoafterfour.staticconstant.PostEvent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
